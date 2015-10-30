@@ -1,0 +1,185 @@
+%
+% Assignment 1a for CS3530 Computational Theory:
+% Finite Automata
+% Fall 2015
+%
+% Problems taken from Sipser
+%
+
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{ae,aecompl}
+\usepackage{emp,ifpdf}
+\usepackage{graphicx}
+
+\ifpdf\DeclareGraphicsRule{*}{mps}{*}{}\fi
+
+\empprelude{input boxes; input theory}
+
+% skip for paragraphs, don't indent
+\addtolength{\parskip}{0.5\baselineskip}
+\parindent=0pt
+
+\begin{document}
+\begin{empfile}
+
+\begin{center}
+\textbf{\Large CS 3530: Assignment 1a} \\[2mm]
+Fall 2015
+\end{center}
+
+\raggedright
+
+\section*{Exercises}
+
+\subsection*{Exercise 1.6bcefm (20 points)}
+
+\subsubsection*{Problem}
+
+Give state diagrams of DFAs recognizing the following languages. In
+all parts the alphabet is $\{0,1\}$.
+
+\begin{itemize}
+\item[b.] Language: $\{w:w$ contains at least three $1$s$\}$
+
+\textbf{Solution}
+
+\begin{center}
+\begin{emp}(0,0)
+  mediumnodes;
+
+  u := 1.5cm;
+  node.q0(); q0.c = (-3u,0);
+  node.q1(); q1.c = (-2u,0);
+  node.q2(); q2.c = (-1u,0);
+  node.q3(); q3.c = (0,0);
+
+  loop(q0, up, ZERO);
+  loop(q1, up, ZERO);
+  loop(q2, up, ZERO);
+  loop(q3, up, ZEROONE);
+  edge(q0, q1, curve, ONE);
+  edge(q1, q2, curve, ONE);
+  edge(q2, q3, curve, ONE);
+
+  drawboxed(q0, q1, q2, q3);
+  makestart(q0);
+  makefinal(q3);
+\end{emp}
+\end{center}
+
+\item[c.] Language: $\{w:w$ contains the substring $0101$, i.e., $w=x0101y$ for some $x$ and $y\}$
+
+\textbf{Solution}
+
+\begin{center}
+\begin{emp}(0,0)
+  mediumnodes;
+
+  u := 1.5cm;
+  node.q0(); q0.c = (-3u,0);
+  node.q1(); q1.c = (-2u,0);
+  node.q2(); q2.c = (-1u,0);
+  node.q3(); q3.c = (0,0);
+  node.q4(); q4.c = (u,0);
+
+  loop(q0, up, ONE);
+  loop(q1, up, ZERO);
+  loop(q4, up, ZEROONE);
+  edge(q0, q1, curve, ZERO);
+  edge(q1, q2, curve, ONE);
+  edge(q2, q3, curve, ZERO);
+  edge(q3, q4, curve, ONE);
+  edge(q2, q0, 45, ONE);
+  edge(q3, q1, -55, ZERO);
+
+  drawboxed(q0, q1, q2, q3, q4);
+  makestart(q0);
+  makefinal(q4);
+\end{emp}
+\end{center}
+
+\item[e.] Language: $\{w:w$ starts with $0$ and has odd length, or
+starts with $1$ and has even length$\}$
+
+\textbf{Solution}
+
+\begin{center}
+\begin{emp}(0,0)
+  mediumnodes;
+
+  u := 1.5cm;
+  node.q0(); q0.c = (-3u,0);
+  node.q1(); q1.c = (-2u,0);
+  node.q2(); q2.c = (-3u,-u);
+
+  edge(q0, q1, curve, ZERO);
+  edge(q0, q2, -curve, ONE);
+  edge(q2, q1, 1, ZEROONE);
+  edge(q1, q2, 65, ZEROONE);
+
+  drawboxed(q0, q1, q2);
+  makestart(q0);
+  makefinal(q1);
+\end{emp}
+\end{center}
+
+\item[f.] Language: $\{w:w$ doesn't contain the substring $110\}$
+
+\textbf{Solution}
+
+\begin{center}
+\begin{emp}(0,0)
+  mediumnodes;
+
+  u := 1.5cm;
+  node.q0(); q0.c = (-3u,0);
+  node.q1(); q1.c = (-2u,0);
+  node.q2(); q2.c = (-1u,0);
+  node.q3(); q3.c = (0,0);
+
+  loop(q0, up, ZERO);
+  loop(q3, up, ZEROONE);
+  edge(q0, q1, curve, ONE);
+  edge(q1, q2, curve, ONE);
+  edge(q2, q3, curve, ZERO);
+  edge(q1, q0, curve, ZERO);
+  edge(q2, q1, curve, ONE);
+
+  drawboxed(q0, q1, q2, q3);
+  makestart(q0);
+  makefinal(q0, q1, q2);
+\end{emp}
+\end{center}
+
+\item[m.] Language: The empty set
+
+\textbf{Solution}
+
+\begin{center}
+\begin{emp}(0,0)
+  mediumnodes;
+
+  u := 1.5cm;
+  node.q0(); q0.c = (-3u,0);
+  node.q1(); q1.c = (-2u,0);
+
+  loop(q1, up, ZEROONE);
+  edge(q0, q1, curve, ZEROONE);
+
+  drawboxed(q0, q1);
+  makestart(q0);
+  makefinal(q0);
+\end{emp}
+\end{center}
+
+\end{itemize}
+
+\end{empfile}
+\immediate\write18{mpost -tex=latex \jobname}
+\end{document}

@@ -1,0 +1,8 @@
+Deterministic Finite Automata (DFAs)
+
+- A DFA M is a 5-tuple (Q, E, d, q0, F)
+ Q: Finite set of states
+ E: Alphabet
+ d: "Transition function", Q x E -> Q
+ q0: Start state, q0 e Q
+ F: Accept (or final) states, F _C Q
